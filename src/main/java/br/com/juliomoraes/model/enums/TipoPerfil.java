@@ -1,5 +1,5 @@
 package br.com.juliomoraes.model.enums;
 
 public enum TipoPerfil {
-    FREE, PREMIUM, ADMIN;
+    FREE, PREMIUM, ADMIN, APLICACAO;
 }

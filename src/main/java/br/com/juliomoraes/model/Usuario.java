@@ -25,16 +25,16 @@ public class Usuario {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, updatable = false)
     private String email;
 
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(nullable = false)
     private String senha;
 
     @Column(updatable = false, nullable = false)
     private LocalDateTime dataCadastro;
 
-    @Column(insertable = false, nullable = false)
+    @Column(insertable = false)
     private LocalDateTime dataAtualizacao;
 
     private boolean ativo;
