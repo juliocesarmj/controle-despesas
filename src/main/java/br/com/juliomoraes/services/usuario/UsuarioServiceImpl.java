@@ -7,6 +7,7 @@ import br.com.juliomoraes.model.Usuario;
 import br.com.juliomoraes.model.enums.TipoPerfil;
 import br.com.juliomoraes.repositories.PerfilRepository;
 import br.com.juliomoraes.repositories.UsuarioRepository;
+import br.com.juliomoraes.services.exceptions.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,9 +34,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
         Perfil perfil = this.perfilRepository.findByTipo(TipoPerfil.ROLE_FREE).orElseThrow(
                 () -> new RuntimeException("Erro interno no servidor. Contate o administrador"));
 
-        usuarioRepository
-                .obterPorEmail(dto.getEmail())
-                .ifPresent(usuario -> new RuntimeException("User not able: " + dto.getEmail()));
+        this.validarEmailExistente(dto.getEmail());
 
         Usuario usuario = Usuario.builder()
                 .nome(dto.getNome())
@@ -51,6 +50,14 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
                 .dataCadastro(usuario.getDataCadastro())
                 .ativo(usuario.isAtivo())
                 .build();
+    }
+
+    private void validarEmailExistente(String email) {
+        usuarioRepository
+                .obterPorEmail(email)
+                .ifPresent(usuario -> {
+                    throw new EntityExistsException("User not able: " + email);
+                });
     }
 
     @Override
