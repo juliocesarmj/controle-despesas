@@ -2,10 +2,16 @@ package br.com.juliomoraes.model;
 
 import br.com.juliomoraes.model.enums.TipoPerfil;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_perfil")
 public class Perfil {
