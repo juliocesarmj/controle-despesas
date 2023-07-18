@@ -6,13 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Builder
@@ -43,9 +40,11 @@ public class Usuario implements UserDetails {
 
     private boolean ativo;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "perfil_id", nullable = false)
-    private Perfil perfil;
+    @ManyToMany
+    @JoinTable(name = "tb_usuario_perfil",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+    inverseJoinColumns = @JoinColumn(name = "perfil_id"))
+    private Set<Perfil> roles = new HashSet<>();
     @OneToMany(mappedBy = "usuario")
     private List<Movimento> movimentos = new ArrayList<>();
 
@@ -60,9 +59,13 @@ public class Usuario implements UserDetails {
         this.dataAtualizacao = LocalDateTime.now();
     }
 
+    public void addPerfil(Perfil perfil) {
+        this.roles.add(perfil);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.perfil.getTipo().name()));
+        return roles;
     }
 
     @Override
@@ -92,6 +95,6 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return ativo;
     }
 }

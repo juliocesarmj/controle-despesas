@@ -5,16 +5,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_perfil")
-public class Perfil {
+public class Perfil implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +22,8 @@ public class Perfil {
     @Enumerated(EnumType.STRING)
     private TipoPerfil tipo;
 
-    @OneToMany(mappedBy = "perfil")
-    private List<Usuario> usuarios = new ArrayList<>();
+    @Override
+    public String getAuthority() {
+        return this.tipo.name();
+    }
 }

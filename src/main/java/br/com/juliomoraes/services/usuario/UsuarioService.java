@@ -7,4 +7,6 @@ public interface UsuarioService {
 
     UsuarioResponseDto criar(UsuarioRequestDto dto);
 
+    UsuarioResponseDto obterInfo();
+
 }

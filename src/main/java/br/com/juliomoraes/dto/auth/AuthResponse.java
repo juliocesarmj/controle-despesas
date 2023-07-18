@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -14,7 +15,7 @@ import java.time.Instant;
 public class AuthResponse {
     private String nome;
     private String email;
-    private Instant expiracao;
+    private LocalDateTime expiracao;
 
     private String accessToken;
 

@@ -5,6 +5,7 @@ import br.com.juliomoraes.dto.usuario.UsuarioResponseDto;
 import br.com.juliomoraes.model.Perfil;
 import br.com.juliomoraes.model.Usuario;
 import br.com.juliomoraes.model.enums.TipoPerfil;
+import br.com.juliomoraes.projection.UserDetailsProjection;
 import br.com.juliomoraes.repositories.PerfilRepository;
 import br.com.juliomoraes.repositories.UsuarioRepository;
 import br.com.juliomoraes.services.exceptions.EntityExistsException;
@@ -15,7 +16,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
@@ -36,12 +39,11 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
         this.validarEmailExistente(dto.getEmail());
 
-        Usuario usuario = Usuario.builder()
-                .nome(dto.getNome())
-                .email(dto.getEmail())
-                .senha(passwordEncoder.encode(dto.getSenha()))
-                .perfil(perfil)
-                .build();
+        Usuario usuario = new Usuario();
+        usuario.setNome(dto.getNome());
+        usuario.setEmail(dto.getEmail());
+        usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
+        usuario.addPerfil(perfil);
         this.usuarioRepository.save(usuario);
         return UsuarioResponseDto
                 .builder()
@@ -50,6 +52,11 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
                 .dataCadastro(usuario.getDataCadastro())
                 .ativo(usuario.isAtivo())
                 .build();
+    }
+
+    @Override
+    public UsuarioResponseDto obterInfo() {
+        return null;
     }
 
     private void validarEmailExistente(String email) {
@@ -62,6 +69,19 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return usuarioRepository.findByEmail(username);
+
+        List<UserDetailsProjection> result = usuarioRepository.searchUserAndRolesByEmail(username);
+        if (result.isEmpty()) {
+            throw new UsernameNotFoundException("Email not found");
+        }
+
+        Usuario user = new Usuario();
+        user.setEmail(result.get(0).getUsername());
+        user.setSenha(result.get(0).getPassword());
+        for (UserDetailsProjection projection : result) {
+            user.addPerfil(new Perfil(projection.getRoleId(), TipoPerfil.valueOf(projection.getAuthority())));
+        }
+
+        return user;
     }
 }
