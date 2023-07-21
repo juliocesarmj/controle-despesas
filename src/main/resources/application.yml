@@ -10,9 +10,6 @@ spring:
     url: jdbc:mysql://localhost:3306/controldb
     username: root
     password: admin
-  jpa:
-    hibernate:
-      ddl-auto: update
 security:
     client-id: ${CLIENT_ID:myclientid}
     client-secret: ${CLIENT_SECRET:myclientsecret}
