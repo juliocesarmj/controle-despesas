@@ -10,6 +10,8 @@ spring:
     url: jdbc:mysql://localhost:3306/controldb
     username: root
     password: admin
+  flyway:
+    locations: classpath:db/migration, classpath:db/testdata
 #  jpa:
 #    properties:
 #      jakarta.persistence.schema-generation.scripts.action: create
