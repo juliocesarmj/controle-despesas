@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -52,4 +52,8 @@ public class Movimento {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
+    @PrePersist
+    public void doPersist() {
+        this.dataCadastro = LocalDate.now();
+    }
 }

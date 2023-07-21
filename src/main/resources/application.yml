@@ -10,6 +10,10 @@ spring:
     url: jdbc:mysql://localhost:3306/controldb
     username: root
     password: admin
+#  jpa:
+#    properties:
+#      jakarta.persistence.schema-generation.scripts.action: create
+#      jakarta.persistence.schema-generation.scripts.create-target: src/main/resources/ddl.sql
 security:
     client-id: ${CLIENT_ID:myclientid}
     client-secret: ${CLIENT_SECRET:myclientsecret}
