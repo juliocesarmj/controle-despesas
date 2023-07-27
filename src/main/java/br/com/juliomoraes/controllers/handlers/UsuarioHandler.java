@@ -1,7 +1,6 @@
 package br.com.juliomoraes.controllers.handlers;
 
 import br.com.juliomoraes.controllers.exceptions.ErrorResponse;
-import br.com.juliomoraes.infrastructure.security.exception.TokenNotFoundException;
 import br.com.juliomoraes.services.exceptions.EntityExistsException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -23,18 +22,6 @@ public class UsuarioHandler {
                         .status(badRequest.value())
                         .timestamp(LocalDateTime.now())
                         .path(req.getRequestURI())
-                .build());
-    }
-
-    @ExceptionHandler(TokenNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handlerTokenNotFoundException(TokenNotFoundException e, HttpServletRequest req) {
-        HttpStatus unauthorized = HttpStatus.UNAUTHORIZED;
-
-        return ResponseEntity.status(unauthorized).body(ErrorResponse.builder()
-                .message(e.getMessage())
-                .status(unauthorized.value())
-                .timestamp(LocalDateTime.now())
-                .path(req.getRequestURI())
                 .build());
     }
 }

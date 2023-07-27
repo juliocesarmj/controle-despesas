@@ -1,15 +1,14 @@
 package br.com.juliomoraes.model;
 
 import br.com.juliomoraes.model.enums.TipoDespesa;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -48,6 +47,7 @@ public class Movimento {
 
     private String observacoes;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;

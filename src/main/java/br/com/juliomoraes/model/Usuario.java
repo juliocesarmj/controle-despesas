@@ -1,5 +1,6 @@
 package br.com.juliomoraes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,6 +46,8 @@ public class Usuario implements UserDetails {
             joinColumns = @JoinColumn(name = "usuario_id"),
     inverseJoinColumns = @JoinColumn(name = "perfil_id"))
     private Set<Perfil> roles = new HashSet<>();
+
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<Movimento> movimentos = new ArrayList<>();
 

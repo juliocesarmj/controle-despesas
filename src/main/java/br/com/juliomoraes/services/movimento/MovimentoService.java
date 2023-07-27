@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MovimentoService {
     Movimento novo(Movimento movimento);
-    List<Movimento> obterMovimentosUsuarioLogado(Usuario usuario);
+    List<Movimento> obterMovimentosUsuarioLogado();
     Movimento obterPorId(Long id, Usuario usuario);
     Movimento obterPorId(Long id);
     List<Movimento> obterPorDatas(LocalDate dataVencimentoInicio, LocalDate dataVencimentoFim, Usuario usuario);
