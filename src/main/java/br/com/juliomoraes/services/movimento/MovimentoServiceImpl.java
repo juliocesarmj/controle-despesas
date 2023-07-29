@@ -1,11 +1,12 @@
 package br.com.juliomoraes.services.movimento;
 
+import br.com.juliomoraes.api.dtos.MovimentoCriacaoDto;
 import br.com.juliomoraes.model.Movimento;
 import br.com.juliomoraes.model.Usuario;
 import br.com.juliomoraes.repositories.MovimentoRepository;
 import br.com.juliomoraes.services.auth.AuthService;
+import br.com.juliomoraes.services.utils.MovimentoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,8 +22,10 @@ public class MovimentoServiceImpl implements MovimentoService {
     private MovimentoRepository movimentoRepository;
 
     @Override
-    public Movimento novo(Movimento movimento) {
-        return null;
+    public Movimento novo(MovimentoCriacaoDto dto) {
+        Movimento.MovimentoBuilder movimentoBuilder = MovimentoFactory.toEntity(dto);
+        movimentoBuilder.usuario(authService.authenticated());
+        return movimentoRepository.save(movimentoBuilder.build());
     }
 
     @Override

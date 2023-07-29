@@ -16,7 +16,7 @@ public class AuthServiceImpl implements AuthService {
     private UsuarioRepository repository;
 
     @Override
-    public Usuario authenticated() {
+    public Usuario authenticated() throws EntityNotFoundException{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
             String userName = jwtPrincipal.getClaim("username");

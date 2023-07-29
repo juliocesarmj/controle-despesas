@@ -2,6 +2,7 @@ package br.com.juliomoraes.api.controllers;
 
 import br.com.juliomoraes.api.dtos.MovimentoCriacaoDto;
 import br.com.juliomoraes.model.Movimento;
+import br.com.juliomoraes.services.exceptions.EntityNotFoundException;
 import br.com.juliomoraes.services.movimento.MovimentoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -20,15 +21,20 @@ public class MovimentoController {
     }
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE', 'ROLE_PREMIUM')")
     @GetMapping
     public List<Movimento> findAll() {
         return movimentoService.obterMovimentosUsuarioLogado();
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE', 'ROLE_PREMIUM')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Movimento criar(@RequestBody @Valid MovimentoCriacaoDto dto) {
-        return null;
+        try {
+            return movimentoService.novo(dto);
+        } catch (EntityNotFoundException e) {
+            return null;
+        }
     }
 }
