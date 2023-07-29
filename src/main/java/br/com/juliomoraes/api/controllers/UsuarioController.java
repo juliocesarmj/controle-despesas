@@ -1,4 +1,4 @@
-package br.com.juliomoraes.controllers;
+package br.com.juliomoraes.api.controllers;
 
 import br.com.juliomoraes.dto.usuario.UsuarioRequestDto;
 import br.com.juliomoraes.dto.usuario.UsuarioResponseDto;

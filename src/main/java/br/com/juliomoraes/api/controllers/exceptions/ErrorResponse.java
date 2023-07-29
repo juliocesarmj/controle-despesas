@@ -1,4 +1,4 @@
-package br.com.juliomoraes.controllers.exceptions;
+package br.com.juliomoraes.api.controllers.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

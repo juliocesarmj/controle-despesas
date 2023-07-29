@@ -1,6 +1,6 @@
-package br.com.juliomoraes.controllers.handlers;
+package br.com.juliomoraes.api.controllers.handlers;
 
-import br.com.juliomoraes.controllers.exceptions.ErrorResponse;
+import br.com.juliomoraes.api.controllers.exceptions.ErrorResponse;
 import br.com.juliomoraes.services.exceptions.EntityExistsException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
