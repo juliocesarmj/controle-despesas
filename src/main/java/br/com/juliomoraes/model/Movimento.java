@@ -40,7 +40,7 @@ public class Movimento {
     private LocalDate dataPagamento;
 
     @Column(nullable = false)
-    private boolean status;
+    private boolean pago;
 
     @Column(nullable = false)
     private boolean recorrente;
