@@ -1,7 +1,7 @@
 package br.com.juliomoraes.services.usuario;
 
-import br.com.juliomoraes.dto.usuario.UsuarioRequestDto;
-import br.com.juliomoraes.dto.usuario.UsuarioResponseDto;
+import br.com.juliomoraes.api.dtos.usuario.UsuarioRequestDto;
+import br.com.juliomoraes.api.dtos.usuario.UsuarioResponseDto;
 import br.com.juliomoraes.model.Perfil;
 import br.com.juliomoraes.model.Usuario;
 import br.com.juliomoraes.model.enums.TipoPerfil;

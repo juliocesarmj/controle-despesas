@@ -1,4 +1,4 @@
-package br.com.juliomoraes.dto.usuario;
+package br.com.juliomoraes.api.dtos.usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
