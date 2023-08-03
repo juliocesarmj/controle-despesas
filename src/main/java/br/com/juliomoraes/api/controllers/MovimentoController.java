@@ -2,9 +2,12 @@ package br.com.juliomoraes.api.controllers;
 
 import br.com.juliomoraes.api.dtos.MovimentoCriacaoDto;
 import br.com.juliomoraes.model.Movimento;
+import br.com.juliomoraes.services.exceptions.BusinessException;
 import br.com.juliomoraes.services.exceptions.EntityNotFoundException;
+import br.com.juliomoraes.services.exceptions.UserNotFoundException;
 import br.com.juliomoraes.services.movimento.MovimentoService;
 import jakarta.validation.Valid;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +36,9 @@ public class MovimentoController {
     public Movimento criar(@RequestBody @Valid MovimentoCriacaoDto dto) {
         try {
             return movimentoService.novo(dto);
-        } catch (EntityNotFoundException e) {
-            return null;
+        } catch (UserNotFoundException e) {
+            Throwable rootCause = ExceptionUtils.getRootCause(e);
+            throw new BusinessException(e.getMessage(), rootCause);
         }
     }
 }

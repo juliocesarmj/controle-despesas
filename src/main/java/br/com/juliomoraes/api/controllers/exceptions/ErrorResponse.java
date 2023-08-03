@@ -1,22 +1,17 @@
 package br.com.juliomoraes.api.controllers.exceptions;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.Getter;
 
-import java.time.LocalDateTime;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@JsonInclude(Include.NON_NULL)
+@Getter
 @Builder
 public class ErrorResponse {
 
-    private String message;
-    private int status;
-    private LocalDateTime timestamp;
-    private String path;
+    private Integer status;
+    private String type;
+    private String title;
+    private String detail;
 }
