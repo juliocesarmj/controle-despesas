@@ -5,6 +5,7 @@ import br.com.juliomoraes.model.Movimento;
 import br.com.juliomoraes.model.Usuario;
 import br.com.juliomoraes.repositories.MovimentoRepository;
 import br.com.juliomoraes.services.auth.AuthService;
+import br.com.juliomoraes.services.exceptions.MovimentoNotFoundException;
 import br.com.juliomoraes.services.utils.MovimentoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,8 @@ public class MovimentoServiceImpl implements MovimentoService {
 
     @Override
     public Movimento obterPorId(Long id) {
-        return null;
+        return movimentoRepository.findByIdAndUsuario(id, authService.authenticated())
+                .orElseThrow(() -> new MovimentoNotFoundException(id));
     }
 
     @Override

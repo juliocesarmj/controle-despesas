@@ -35,4 +35,10 @@ public class MovimentoController {
     public Movimento criar(@RequestBody @Valid MovimentoCriacaoDto dto) throws UserNotFoundException {
         return movimentoService.novo(dto);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE', 'ROLE_PREMIUM')")
+    @GetMapping("/{id}")
+    public Movimento buscar(@PathVariable("id") Long id) {
+        return movimentoService.obterPorId(id);
+    }
 }
