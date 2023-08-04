@@ -54,6 +54,7 @@ promovendo assim uma melhor experiencia de uso para o usuário(Eu mesmo rsrs).
 - Buscar despesa por identificador
 - Atualização de despesa
 - Exclusão de despesa
+- Consulta de despesas filtradas (pagas, nao pagas, vencidas, por intervalo de datas, por tipo de despesa, recorrente, nao recorrente)
 - Atualização dos dados de usuário
 - Implementação job gerador de registros recorrentes
 - Implementação job lembrete de contas a vencer.
