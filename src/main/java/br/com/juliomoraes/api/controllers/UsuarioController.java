@@ -23,7 +23,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public UsuarioResponseDto getInfo() {
+    public UsuarioResponseDto obterInfo() {
         return usuarioService.obterInfo();
     }
 
