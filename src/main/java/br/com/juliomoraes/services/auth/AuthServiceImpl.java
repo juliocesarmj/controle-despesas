@@ -2,7 +2,6 @@ package br.com.juliomoraes.services.auth;
 
 import br.com.juliomoraes.model.Usuario;
 import br.com.juliomoraes.repositories.UsuarioRepository;
-import br.com.juliomoraes.services.exceptions.EntityNotFoundException;
 import br.com.juliomoraes.services.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

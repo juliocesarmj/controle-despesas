@@ -3,7 +3,6 @@ package br.com.juliomoraes.api.controllers;
 import br.com.juliomoraes.api.dtos.MovimentoCriacaoDto;
 import br.com.juliomoraes.model.Movimento;
 import br.com.juliomoraes.services.exceptions.BusinessException;
-import br.com.juliomoraes.services.exceptions.EntityNotFoundException;
 import br.com.juliomoraes.services.exceptions.UserNotFoundException;
 import br.com.juliomoraes.services.movimento.MovimentoService;
 import jakarta.validation.Valid;
@@ -27,7 +26,12 @@ public class MovimentoController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE', 'ROLE_PREMIUM')")
     @GetMapping
     public List<Movimento> findAll() {
-        return movimentoService.obterMovimentosUsuarioLogado();
+        try {
+            return movimentoService.obterMovimentosUsuarioLogado();
+        } catch (UserNotFoundException e) {
+            Throwable rootCause = ExceptionUtils.getRootCause(e);
+            throw new BusinessException(e.getMessage(), rootCause);
+        }
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE', 'ROLE_PREMIUM')")
