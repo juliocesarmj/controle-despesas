@@ -26,7 +26,7 @@ promovendo assim uma melhor experiencia de uso para o usuário(Eu mesmo rsrs).
 
 - Processo automatizado identifica a conta de internet configurada como recorrente.
 - Cria um registro identico com a data de vencimento atualizada para o mes seguinte.
-- Registro disponibilizado para o usuário para consult, atualização, exclusao.
+- Registro disponibilizado para o usuário para consulta, atualização, exclusao.
 
 # Tecnologias
 
