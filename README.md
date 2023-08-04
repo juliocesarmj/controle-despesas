@@ -58,3 +58,8 @@ promovendo assim uma melhor experiencia de uso para o usuário(Eu mesmo rsrs).
 - Implementação job gerador de registros recorrentes
 - Implementação job lembrete de contas a vencer.
 
+# Executando a aplicação 
+
+.\mvnw spring-boot:run
+
+
