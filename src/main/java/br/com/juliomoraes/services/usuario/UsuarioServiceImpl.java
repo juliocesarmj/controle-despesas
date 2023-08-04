@@ -8,7 +8,9 @@ import br.com.juliomoraes.model.enums.TipoPerfil;
 import br.com.juliomoraes.projection.UserDetailsProjection;
 import br.com.juliomoraes.repositories.PerfilRepository;
 import br.com.juliomoraes.repositories.UsuarioRepository;
+import br.com.juliomoraes.services.auth.AuthService;
 import br.com.juliomoraes.services.exceptions.EntityExistsException;
+import br.com.juliomoraes.services.utils.UsuarioDtoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,14 +23,20 @@ import java.util.List;
 @Service
 public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
-    @Autowired
     private UsuarioRepository usuarioRepository;
-
-    @Autowired
     private PerfilRepository perfilRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
+    private AuthService authService;
+
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository,
+                              PerfilRepository perfilRepository,
+                              PasswordEncoder passwordEncoder,
+                              AuthService authService) {
+        this.usuarioRepository = usuarioRepository;
+        this.perfilRepository = perfilRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authService = authService;
+    }
 
     @Override
     public UsuarioResponseDto criar(UsuarioRequestDto dto) {
@@ -54,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Override
     public UsuarioResponseDto obterInfo() {
-        return null;
+        return UsuarioDtoFactory.toDto(authService.authenticated());
     }
 
     private void validarEmailExistente(String email) {

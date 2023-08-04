@@ -25,24 +25,14 @@ public class MovimentoController {
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE', 'ROLE_PREMIUM')")
     @GetMapping
-    public List<Movimento> findAll() {
-        try {
-            return movimentoService.obterMovimentosUsuarioLogado();
-        } catch (UserNotFoundException e) {
-            Throwable rootCause = ExceptionUtils.getRootCause(e);
-            throw new BusinessException(e.getMessage(), rootCause);
-        }
+    public List<Movimento> findAll() throws UserNotFoundException {
+        return movimentoService.obterMovimentosUsuarioLogado();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE', 'ROLE_PREMIUM')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Movimento criar(@RequestBody @Valid MovimentoCriacaoDto dto) {
-        try {
-            return movimentoService.novo(dto);
-        } catch (UserNotFoundException e) {
-            Throwable rootCause = ExceptionUtils.getRootCause(e);
-            throw new BusinessException(e.getMessage(), rootCause);
-        }
+    public Movimento criar(@RequestBody @Valid MovimentoCriacaoDto dto) throws UserNotFoundException {
+        return movimentoService.novo(dto);
     }
 }

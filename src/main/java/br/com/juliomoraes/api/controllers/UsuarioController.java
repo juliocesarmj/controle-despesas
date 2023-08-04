@@ -21,4 +21,10 @@ public class UsuarioController {
     public UsuarioResponseDto create(@RequestBody @Valid UsuarioRequestDto dto) {
         return usuarioService.criar(dto);
     }
+
+    @GetMapping
+    public UsuarioResponseDto getInfo() {
+        return usuarioService.obterInfo();
+    }
+
 }

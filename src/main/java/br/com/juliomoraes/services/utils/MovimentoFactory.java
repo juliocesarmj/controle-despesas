@@ -1,9 +1,11 @@
 package br.com.juliomoraes.services.utils;
 
 import br.com.juliomoraes.api.dtos.MovimentoCriacaoDto;
+import br.com.juliomoraes.api.dtos.usuario.UsuarioResponseDto;
 import br.com.juliomoraes.model.Movimento;
+import br.com.juliomoraes.model.Usuario;
 
-public abstract class MovimentoFactory {
+public class MovimentoFactory {
 
     private MovimentoFactory() {
     }

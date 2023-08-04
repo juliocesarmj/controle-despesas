@@ -4,6 +4,7 @@ import br.com.juliomoraes.api.controllers.exceptions.ErrorResponse;
 import br.com.juliomoraes.services.exceptions.BusinessException;
 import br.com.juliomoraes.services.exceptions.EntityExistsException;
 import br.com.juliomoraes.services.exceptions.EntityNotFoundException;
+import br.com.juliomoraes.services.exceptions.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -15,6 +16,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class ApiErrorHandler extends ResponseEntityExceptionHandler {
+
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> handleUserNotFoundException(UserNotFoundException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ProblemType problemType = ProblemType.USUARIO_TOKEN_NAO_ENCONTRADO;
+        String detail = ex.getMessage();
+
+        ErrorResponse errorResponse = createErrorResponseBuilder(status, problemType, detail).build();
+
+        return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
+    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
