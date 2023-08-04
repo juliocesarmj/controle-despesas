@@ -12,13 +12,13 @@ Essa API me permitira gerir minhas contas e despesas mensais.
 
 O diferencial nesta aplicação é ser possível cadastrar despesas não recorrentes, por exemplo: Festa de aniversário.
 E também será possível cadastrar despesas recorrentes, como conta de luz, agua etc.
-A diferença é que uma conta recorrente, voce cadastra apenas uma vez e o sistema irá automaticamente cria-las nos próximos meses.
+A diferença é que uma conta recorrente o usuário cadastra apenas uma vez e o sistema irá automaticamente cria-las nos próximos meses.
 Para os casos de contas que o valor nao se alteram, é uma opção bastante interessante.
 
-E próximo ao vencimento das contas, um email é enviado ao usuário como forma de ajuda-lo a lembrar de liquidar aquela despesa.
+OBS: Próximo ao vencimento das contas, um email é enviado ao usuário como forma de ajuda-lo a lembrar de liquidar aquela despesa.
 
 Caso de uso:
-Cadastro de conta de internet. Valor 100,00. Recorrente? SIM. Data de vencimento: 03/08/2023.
+Cadastro de conta de internet. Valor: 100,00. Recorrente? SIM. Data de vencimento: 03/08/2023.
 Esta conta refere-se ao mes 08/2023.
 
 No mês 09/2023 será criado automaticamente para este usuário o mesmo registro de conta com a data de vencimento para o mes corrente,
