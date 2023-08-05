@@ -7,6 +7,10 @@ import br.com.juliomoraes.services.exceptions.UserNotFoundException;
 import br.com.juliomoraes.services.movimento.MovimentoService;
 import jakarta.validation.Valid;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +29,10 @@ public class MovimentoController {
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE', 'ROLE_PREMIUM')")
     @GetMapping
-    public List<Movimento> findAll() throws UserNotFoundException {
-        return movimentoService.obterMovimentosUsuarioLogado();
+    public Page<Movimento> findAll(
+            @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        return movimentoService.obterMovimentos(pageable);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FREE', 'ROLE_PREMIUM')")

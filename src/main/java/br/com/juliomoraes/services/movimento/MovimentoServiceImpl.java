@@ -2,12 +2,12 @@ package br.com.juliomoraes.services.movimento;
 
 import br.com.juliomoraes.api.dtos.MovimentoCriacaoDto;
 import br.com.juliomoraes.model.Movimento;
-import br.com.juliomoraes.model.Usuario;
 import br.com.juliomoraes.repositories.MovimentoRepository;
 import br.com.juliomoraes.services.auth.AuthService;
 import br.com.juliomoraes.services.exceptions.MovimentoNotFoundException;
 import br.com.juliomoraes.services.utils.MovimentoFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,11 +16,13 @@ import java.util.List;
 @Service
 public class MovimentoServiceImpl implements MovimentoService {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
+    private final MovimentoRepository movimentoRepository;
 
-    @Autowired
-    private MovimentoRepository movimentoRepository;
+    public MovimentoServiceImpl(AuthService authService, MovimentoRepository movimentoRepository) {
+        this.authService = authService;
+        this.movimentoRepository = movimentoRepository;
+    }
 
     @Override
     public Movimento novo(MovimentoCriacaoDto dto) {
@@ -30,13 +32,8 @@ public class MovimentoServiceImpl implements MovimentoService {
     }
 
     @Override
-    public List<Movimento> obterMovimentosUsuarioLogado() {
-        return movimentoRepository.findAllByUsuario(authService.authenticated());
-    }
-
-    @Override
-    public Movimento obterPorId(Long id, Usuario usuario) {
-        return null;
+    public Page<Movimento> obterMovimentos(Pageable pageable) {
+        return movimentoRepository.findAllByUsuario(authService.authenticated(), pageable);
     }
 
     @Override
@@ -46,22 +43,22 @@ public class MovimentoServiceImpl implements MovimentoService {
     }
 
     @Override
-    public List<Movimento> obterPorDatas(LocalDate dataVencimentoInicio, LocalDate dataVencimentoFim, Usuario usuario) {
+    public List<Movimento> obterPorDatas(LocalDate dataVencimentoInicio, LocalDate dataVencimentoFim) {
         return null;
     }
 
     @Override
-    public List<Movimento> obterMovimentosPagos(Usuario usuario) {
+    public List<Movimento> obterMovimentosPagos() {
         return null;
     }
 
     @Override
-    public List<Movimento> obterMovimentosAtrasados(Usuario usuario) {
+    public List<Movimento> obterMovimentosAtrasados() {
         return null;
     }
 
     @Override
-    public List<Movimento> obterMovimentosPendentes(Usuario usuario) {
+    public List<Movimento> obterMovimentosPendentes() {
         return null;
     }
 }

@@ -2,18 +2,18 @@ package br.com.juliomoraes.services.movimento;
 
 import br.com.juliomoraes.api.dtos.MovimentoCriacaoDto;
 import br.com.juliomoraes.model.Movimento;
-import br.com.juliomoraes.model.Usuario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface MovimentoService {
     Movimento novo(MovimentoCriacaoDto dto);
-    List<Movimento> obterMovimentosUsuarioLogado();
-    Movimento obterPorId(Long id, Usuario usuario);
+    Page<Movimento> obterMovimentos(Pageable pageable);
     Movimento obterPorId(Long id);
-    List<Movimento> obterPorDatas(LocalDate dataVencimentoInicio, LocalDate dataVencimentoFim, Usuario usuario);
-    List<Movimento> obterMovimentosPagos(Usuario usuario);
-    List<Movimento> obterMovimentosAtrasados(Usuario usuario);
-    List<Movimento> obterMovimentosPendentes(Usuario usuario);
+    List<Movimento> obterPorDatas(LocalDate dataVencimentoInicio, LocalDate dataVencimentoFim);
+    List<Movimento> obterMovimentosPagos();
+    List<Movimento> obterMovimentosAtrasados();
+    List<Movimento> obterMovimentosPendentes();
 }
