@@ -1,5 +1,6 @@
 package br.com.juliomoraes.model;
 
+import br.com.juliomoraes.model.enums.TipoPerfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -64,6 +65,10 @@ public class Usuario implements UserDetails {
 
     public void addPerfil(Perfil perfil) {
         this.roles.add(perfil);
+    }
+
+    public boolean isAdmin() {
+        return this.roles.stream().anyMatch(role -> TipoPerfil.ROLE_ADMIN.name().equals(role.getAuthority()));
     }
 
     @Override

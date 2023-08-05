@@ -18,6 +18,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 				INNER JOIN tb_usuario_perfil ON tb_usuario.id = tb_usuario_perfil.usuario_id
 				INNER JOIN tb_perfil ON tb_perfil.id = tb_usuario_perfil.perfil_id
 				WHERE tb_usuario.email = :email
+				AND tb_usuario.ativo = true
 			""")
     List<UserDetailsProjection> searchUserAndRolesByEmail(String email);
 }

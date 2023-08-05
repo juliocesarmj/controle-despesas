@@ -2,6 +2,7 @@ package br.com.juliomoraes.services.movimento;
 
 import br.com.juliomoraes.api.dtos.MovimentoCriacaoDto;
 import br.com.juliomoraes.model.Movimento;
+import br.com.juliomoraes.model.Usuario;
 import br.com.juliomoraes.repositories.MovimentoRepository;
 import br.com.juliomoraes.services.auth.AuthService;
 import br.com.juliomoraes.services.exceptions.MovimentoNotFoundException;
@@ -34,7 +35,10 @@ public class MovimentoServiceImpl implements MovimentoService {
 
     @Override
     public Page<Movimento> obterMovimentos(Pageable pageable) {
-        return movimentoRepository.findAllByUsuario(authService.authenticated(), pageable);
+        Usuario authenticated = authService.authenticated();
+        if (!authenticated.isAdmin())
+            return movimentoRepository.findAllByUsuario(authenticated, pageable);
+        return movimentoRepository.findAll(pageable);
     }
 
     @Override
