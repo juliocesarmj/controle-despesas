@@ -6,6 +6,7 @@ import br.com.juliomoraes.repositories.MovimentoRepository;
 import br.com.juliomoraes.services.auth.AuthService;
 import br.com.juliomoraes.services.exceptions.MovimentoNotFoundException;
 import br.com.juliomoraes.services.utils.MovimentoFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -60,5 +61,20 @@ public class MovimentoServiceImpl implements MovimentoService {
     @Override
     public List<Movimento> obterMovimentosPendentes() {
         return null;
+    }
+
+    @Override
+    public Movimento atualizar(Long id, MovimentoCriacaoDto dto) {
+        Movimento movimento = this.obterPorId(id);
+        BeanUtils.copyProperties(dto, movimento);
+        movimentoRepository.save(movimento);
+        return movimento;
+    }
+
+    @Override
+    public Movimento excluir(Long id) {
+        Movimento movimento = obterPorId(id);
+        movimentoRepository.delete(movimento);
+        return movimento;
     }
 }

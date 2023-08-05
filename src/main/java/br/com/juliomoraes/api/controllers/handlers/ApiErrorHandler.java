@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ApiErrorHandler extends ResponseEntityExceptionHandler {
 
-
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<?> handleUserNotFoundException(UserNotFoundException ex, WebRequest request) {
         HttpStatus status = HttpStatus.UNAUTHORIZED;
