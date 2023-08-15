@@ -47,13 +47,13 @@ promovendo assim uma melhor experiencia de uso para o usuário(Eu mesmo rsrs).
 - Obter dados usuário logado
 - Cadastrar uma despesa
 - Listar todas as despesas do usuário
+- Buscar despesa por identificador
+- Atualização de despesa
+- Exclusão de despesa
 
 # Funcionalidades pendentes
 
 - Testes unitários/integrado
-- Buscar despesa por identificador
-- Atualização de despesa
-- Exclusão de despesa
 - Consulta de despesas filtradas (pagas, nao pagas, vencidas, por intervalo de datas, por tipo de despesa, recorrente, nao recorrente)
 - Atualização dos dados de usuário
 - Implementação job gerador de registros recorrentes
