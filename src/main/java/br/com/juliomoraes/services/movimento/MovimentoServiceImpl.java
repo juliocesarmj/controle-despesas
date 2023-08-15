@@ -43,28 +43,11 @@ public class MovimentoServiceImpl implements MovimentoService {
 
     @Override
     public Movimento obterPorId(Long id) {
-        return movimentoRepository.findByIdAndUsuario(id, authService.authenticated())
-                .orElseThrow(() -> new MovimentoNotFoundException(id));
-    }
-
-    @Override
-    public List<Movimento> obterPorDatas(LocalDate dataVencimentoInicio, LocalDate dataVencimentoFim) {
-        return null;
-    }
-
-    @Override
-    public List<Movimento> obterMovimentosPagos() {
-        return null;
-    }
-
-    @Override
-    public List<Movimento> obterMovimentosAtrasados() {
-        return null;
-    }
-
-    @Override
-    public List<Movimento> obterMovimentosPendentes() {
-        return null;
+        Usuario authenticated = authService.authenticated();
+        if (!authenticated.isAdmin())
+            return movimentoRepository.findByIdAndUsuario(id, authenticated)
+                    .orElseThrow(() -> new MovimentoNotFoundException(id));
+        return movimentoRepository.findById(id).orElseThrow(() -> new MovimentoNotFoundException(id));
     }
 
     @Override

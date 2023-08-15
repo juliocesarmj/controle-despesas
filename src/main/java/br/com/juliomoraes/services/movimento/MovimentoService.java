@@ -15,14 +15,6 @@ public interface MovimentoService {
 
     Movimento obterPorId(Long id);
 
-    List<Movimento> obterPorDatas(LocalDate dataVencimentoInicio, LocalDate dataVencimentoFim);
-
-    List<Movimento> obterMovimentosPagos();
-
-    List<Movimento> obterMovimentosAtrasados();
-
-    List<Movimento> obterMovimentosPendentes();
-
     Movimento atualizar(Long id, MovimentoCriacaoDto dto);
 
     Movimento excluir(Long id);

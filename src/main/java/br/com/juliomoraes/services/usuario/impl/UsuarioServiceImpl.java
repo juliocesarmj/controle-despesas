@@ -1,6 +1,7 @@
-package br.com.juliomoraes.services.usuario;
+package br.com.juliomoraes.services.usuario.impl;
 
 import br.com.juliomoraes.api.dtos.usuario.UsuarioRequestDto;
+import br.com.juliomoraes.api.dtos.usuario.UsuarioRequestPutDto;
 import br.com.juliomoraes.api.dtos.usuario.UsuarioResponseDto;
 import br.com.juliomoraes.model.Perfil;
 import br.com.juliomoraes.model.Usuario;
@@ -10,6 +11,8 @@ import br.com.juliomoraes.repositories.PerfilRepository;
 import br.com.juliomoraes.repositories.UsuarioRepository;
 import br.com.juliomoraes.services.auth.AuthService;
 import br.com.juliomoraes.services.exceptions.EntityExistsException;
+import br.com.juliomoraes.services.usuario.interfaces.UsuarioAtualizacaoService;
+import br.com.juliomoraes.services.usuario.interfaces.UsuarioService;
 import br.com.juliomoraes.services.utils.UsuarioDtoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,19 +26,23 @@ import java.util.List;
 @Service
 public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
-    private UsuarioRepository usuarioRepository;
-    private PerfilRepository perfilRepository;
-    private PasswordEncoder passwordEncoder;
-    private AuthService authService;
+    private final UsuarioRepository usuarioRepository;
+    private final PerfilRepository perfilRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
+    private final UsuarioAtualizacaoService usuarioAtualizacaoService;
 
+    @Autowired
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository,
                               PerfilRepository perfilRepository,
                               PasswordEncoder passwordEncoder,
-                              AuthService authService) {
+                              AuthService authService,
+                              UsuarioAtualizacaoService usuarioAtualizacaoService) {
         this.usuarioRepository = usuarioRepository;
         this.perfilRepository = perfilRepository;
         this.passwordEncoder = passwordEncoder;
         this.authService = authService;
+        this.usuarioAtualizacaoService = usuarioAtualizacaoService;
     }
 
     @Override
@@ -58,6 +65,13 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
                 .dataCadastro(usuario.getDataCadastro())
                 .ativo(usuario.isAtivo())
                 .build();
+    }
+
+    @Override
+    public UsuarioResponseDto atualizar(UsuarioRequestPutDto dto) {
+        Usuario usuario = this.authService.authenticated();
+
+        return usuarioAtualizacaoService.atualizarUsuario(usuario, dto);
     }
 
     @Override
