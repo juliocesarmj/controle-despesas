@@ -69,9 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Override
     public UsuarioResponseDto atualizar(UsuarioRequestPutDto dto) {
-        Usuario usuario = this.authService.authenticated();
-
-        return usuarioAtualizacaoService.atualizarUsuario(usuario, dto);
+        return usuarioAtualizacaoService.atualizarUsuario(this.authService.authenticated(), dto);
     }
 
     @Override
