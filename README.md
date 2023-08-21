@@ -58,6 +58,7 @@ promovendo assim uma melhor experiencia de uso para o usuário(Eu mesmo rsrs).
 - Testes unitários/integrado
 - Implementação job gerador de registros recorrentes
 - Implementação job lembrete de contas a vencer.
+- Deploy em produção e gerenciamento CI/CD.
 
 # Executando a aplicação 
 
