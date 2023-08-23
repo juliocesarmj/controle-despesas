@@ -22,7 +22,7 @@ Cadastro de conta de internet. Valor: 100,00. Recorrente? SIM. Data de venciment
 Esta conta refere-se ao mes 08/2023.
 
 No mês 09/2023 será criado automaticamente para este usuário o mesmo registro de conta com a data de vencimento para o mes corrente,
-promovendo assim uma melhor experiencia de uso para o usuário(Eu mesmo rsrs).
+promovendo assim uma melhor experiencia de uso para o usuário.
 
 - Processo automatizado identifica a conta de internet configurada como recorrente.
 - Cria um registro identico com a data de vencimento atualizada para o mes seguinte.
